@@ -63,19 +63,25 @@ public class guir1 extends JFrame {
 		button1.setToolTipText("Προβολή καιρικών δεδομένων ανά πόλη");
 		button1.setFont(new Font("Arial", Font.PLAIN, 24));
 		button1.setMargin(new Insets(10, 10, 10, 10));
-		
+	
 		button1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Προβολή καιρικών δεδομένων ανά πόλη");
+				JFrame currentFrame = (JFrame) SwingUtilities.windowForComponent((Component) e.getSource());
+				currentFrame.dispose();
+				guir2 newFrame = new guir2();
+				newFrame.setVisible(true);
 			}
 		});
 		
+	
 		button1.setVerticalTextPosition(SwingConstants.CENTER);
 		button1.setHorizontalTextPosition(SwingConstants.LEFT);
 		button1.setPreferredSize(new Dimension(475, 35));
 		return button1;
 	}
+	
 
 	private JButton createButton2() {
 		JButton button2 = new JButton("Προβολή λίστας πόλεων και ημερομηνιών");
