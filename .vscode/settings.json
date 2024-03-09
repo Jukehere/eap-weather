@@ -1,0 +1,15 @@
+{
+    "java.project.sourcePaths": [
+        "eap weather/src"
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "eap weather/lib/gson-2.8.5.jar",
+        "eap weather/lib/jcommon-1.0.23.jar",
+        "eap weather/lib/jfreechart-1.0.19.jar",
+        "eap weather/lib/kotlin-stdlib-1.3.61.jar",
+        "eap weather/lib/okhttp-4.2.1.jar",
+        "eap weather/lib/okio-2.4.3.jar",
+        "eap weather/**/*.jar"
+    ]
+}
