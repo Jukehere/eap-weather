@@ -94,6 +94,10 @@ public class guir1 extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Προβολή λίστας πόλεων και ημερομηνιών");
+                                JFrame currentFrame = (JFrame) SwingUtilities.windowForComponent((Component) e.getSource());
+				currentFrame.dispose();
+				guir3 newFrame = new guir3();
+				newFrame.setVisible(true);
 			}
 		});
 		
@@ -114,6 +118,10 @@ public class guir1 extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Προβολή στατιστικών ανά πόλη");
+                                JFrame currentFrame = (JFrame) SwingUtilities.windowForComponent((Component) e.getSource());
+				currentFrame.dispose();
+				guir4 newFrame = new guir4();
+				newFrame.setVisible(true);
 			}
 		});
 		
