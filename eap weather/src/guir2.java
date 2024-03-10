@@ -338,7 +338,7 @@ public class guir2 extends JFrame {
         String weatherDescription = ((JTextField) ((JPanel) mainPanel.getComponent(6)).getComponent(1)).getText();
         String date = ((JTextField) ((JPanel) mainPanel.getComponent(7)).getComponent(1)).getText();
     
-        if (entryExists(cityName, date)) {
+        if (entryExists(cityName, temperature, humidity, windSpeed, UVIndex, weatherDescription, date)) {
             JOptionPane.showMessageDialog(frame, "Υπάρχει ήδη αυτή η καταχώρηση", "Duplicate Entry", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -365,11 +365,17 @@ public class guir2 extends JFrame {
         }
     }
     
-    private boolean entryExists(String cityName, String date) {
+    private boolean entryExists(String cityName, String temperature, String humidity, String windSpeed, String UVIndex, String weatherDescription, String date) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM CITYDATA WHERE CITYNAME = ? AND WEATHER_DATE = ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM CITYDATA WHERE CITYNAME = ? AND WEATHER_DATE = ? AND C_TEMP = ? AND HUMIDITY = ? AND WSPEEDINKMPH = ? AND UVINDEX = ? AND WEATHERDESC = ?")) {
             stmt.setString(1, cityName);
             stmt.setString(2, date);
+            stmt.setString(3, temperature);
+            stmt.setString(4, humidity);
+            stmt.setString(5, windSpeed);
+            stmt.setString(6, UVIndex);
+            stmt.setString(7, weatherDescription);
+            
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     int count = rs.getInt(1);
@@ -381,6 +387,7 @@ public class guir2 extends JFrame {
         }
         return false;
     }
+    
 
     private void deleteDataFromDatabase() {
         String cityName = cityField.getText();
@@ -392,7 +399,7 @@ public class guir2 extends JFrame {
         String date = ((JTextField) ((JPanel) mainPanel.getComponent(7)).getComponent(1)).getText();
     
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement("DELETE FROM CITYDATA WHERE CITYNAME = ? AND WEATHER_DATE = ? AND C_TEMP = ? AND HUMIDITY = ? AND WSPEEDINKMPH = ? AND UVINDEX = ? AND WEATHERDESC = ?")) {
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM CITYDATA WHERE CITYNAME = ? AND WEATHER_DATE = ? AND C_TEMP = ? AND HUMIDITY = ? AND WSPEEDINKMPH = ? AND UVINDEX = ? AND WEATHERDESC = ?")) {
             stmt.setString(1, cityName);
             stmt.setString(2, date);
             stmt.setString(3, temperature);
