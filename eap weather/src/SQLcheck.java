@@ -13,14 +13,13 @@ import java.sql.SQLException;
 public class SQLcheck {
     
     public static void main(String[] args) {
-        System.out.println("hello");
         // Ορίστε τα στοιχεία σύνδεσης στη βάση δεδομένων
         String url = "jdbc:derby://localhost:1527/weatherdata"; // Π.χ., jdbc:mysql://localhost:3306/yourDatabase
         String user = "weatherdata";
         String password = "weatherdata";
 
         // Η SQL εντολή που θέλετε να εκτελέσετε
-        String query = "SELECT City.areaname, City.views, Citydata.weatherdesc FROM City JOIN Citydata ON City.areaname = Citydata.cityname;";
+        String query = "SELECT City.areaname, City.views, Citydata.weatherdesc FROM City JOIN Citydata ON City.areaname = Citydata.cityname";
 
         try (
             // Συνδεθείτε στη βάση δεδομένων

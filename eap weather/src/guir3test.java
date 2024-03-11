@@ -49,6 +49,8 @@ public class guir3test extends JFrame {
         JList<String> citiesList = new JList<>(cities.toArray(new String[0]));
         citiesList.setFont(new Font("Arial", Font.PLAIN, 18));
         JScrollPane scrollPane = new JScrollPane(citiesList);
+        scrollPane.setPreferredSize(new Dimension(frame.getWidth(), frame.getHeight()-100));
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         mainPanel.add(scrollPane);
         
         
@@ -61,6 +63,8 @@ public class guir3test extends JFrame {
         mainPanel.add(buttonPanel);
         
         frame.add(mainPanel, BorderLayout.CENTER);
+        
+        
     }
     
     private JButton createBackButton() {
@@ -90,14 +94,21 @@ public class guir3test extends JFrame {
     String url = "jdbc:derby://localhost:1527/weatherdata"; // Αντικαταστήστε με το URL της βάσης σας
     String user = "weatherdata"; // Ο χρήστης της βάσης δεδομένων σας
     String password = "weatherdata"; // Ο κωδικός πρόσβασης
-
+    String query = "SELECT City.areaname, City.views, Citydata.weather_date FROM City JOIN Citydata ON City.areaname = Citydata.cityname";
+    
     try (Connection con = DriverManager.getConnection(url, user, password);
-         PreparedStatement pst = con.prepareStatement("SELECT areaname FROM City");
+         PreparedStatement pst = con.prepareStatement(query);
          ResultSet rs = pst.executeQuery()) {
 
         while (rs.next()) {
-            cities.add(rs.getString("areaname"));
-        }
+            String areaname = rs.getString("areaname");
+                int views = rs.getInt("views");
+                String weather_date = rs.getString("weather_date");
+                String listText = "Πόλη: " + areaname + ", Προβολές: " + views + ", Ημερομηνία: " + weather_date;
+                System.out.println(listText);
+                cities.add(listText);
+            }
+        
     } catch (SQLException ex) {
         ex.printStackTrace();
     }
@@ -109,7 +120,9 @@ public class guir3test extends JFrame {
     }
     
     public static void main(String[] args) {
-        guir3 myGui = new guir3();
+        guir3test myGui = new guir3test();
         myGui.show();
     }
+    
+    
 }
